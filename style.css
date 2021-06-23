@@ -1,0 +1,33 @@
+*, ::after, ::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+img{
+    width: 150px;
+    height: auto;
+    margin: 10px;
+}
+
+img::after {
+    content: "";
+    width: 150px;
+    height: 150px;
+    background-color: #a4262c;
+}
+
+#game_zone {
+    margin-top: 150px;
+    width: 600px;
+    border: solid 1px red;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
