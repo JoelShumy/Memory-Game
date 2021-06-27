@@ -16,11 +16,26 @@ img{
     margin: 10px;
 }
 
-img::after {
-    content: "";
-    width: 150px;
-    height: 150px;
+.hiding_background {
     background-color: #a4262c;
+    position: absolute;
+    width: 160px;
+    height: 175px;
+    margin: 5px;
+    opacity: 0.5;
+}
+
+.invisible {
+    opacity: 0;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    width: 150px;
+    height: auto;
+    margin: 10px;
+
 }
 
 #game_zone {
