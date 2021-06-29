@@ -17,12 +17,12 @@ img{
 }
 
 .hiding_background {
-    background-color: #a4262c;
+    background-color: #574b4c;
     position: absolute;
     width: 160px;
     height: 175px;
     margin: 5px;
-    opacity: 0.5;
+    opacity: 1;
 }
 
 .invisible {
@@ -41,7 +41,6 @@ img{
 #game_zone {
     margin-top: 150px;
     width: 600px;
-    border: solid 1px red;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;

@@ -4,60 +4,75 @@ let hasFlippedCard = false;
 let firstCard, secondCard;
 let lockBoard = false;
 
-function flipCard (e) {
-
-    const hider = this.childNodes[3];
-    console.log(hider)
-
+function flipCard(e) {
+    if(lockBoard) return;
+    if(this === firstCard) return;
+    hider = e.target;
     hider.classList.add('invisible');
-    // console.log(this)
+    checkCard(e)
+    checkMatch();
+}
 
-
-    // console.log(firstCard.childNodes[3]);
-    // console.log(firstCard.dataset.pokemon);
-
-
-    //does it match ?
-
-
-        if(!hasFlippedCard){
-            //first selected card
-            hasFlippedCard = true;
-            firstCard = this;
-            console.log(firstCard.childNodes[3]);
-            console.log(firstCard.dataset.pokemon);
-            return;
-        } else {
-            //second click
-            hasFlippedCard = false;
-            secondCard = this;
-            console.log(secondCard.childNodes[3]);
-        }
     
+//Check card
+function checkCard(e) {
+    if(!hasFlippedCard){
+        //first selected card
+        hasFlippedCard = true;
+        firstCard = e.target.parentNode;
+        return;
 
-    function resetCards() {
-        firstCard = "";
-        secondCard = "";
-    }
+    } 
 
+        //second click
+        hasFlippedCard = false;
+        secondCard = e.target.parentNode;
+}
 
-        if(firstCard.dataset.pokemon === secondCard.dataset.pokemon){
-            firstCard.removeEventListener('click', flipCard);
-            secondCard.removeEventListener('click', flipCard);
-            alert("it's a match !")
-            resetCards();
-        } else {
-            setTimeout(() => {
-                firstCard.childNodes[3].classList.remove('invisible');
-                secondCard.childNodes[3].classList.remove('invisible');
-                resetCards();
-            }, 1000);
-            hasFlippedCard = false;
-        }
+//does it match ?
+function checkMatch(){
+
+    let isMatch = firstCard.dataset.pokemon === secondCard.dataset.pokemon;
+
+    isMatch ? disableCards() : resetHiderCards();
 
 }
+
+function disableCards(){
+    firstCard.removeEventListener('click', flipCard);
+    secondCard.removeEventListener('click', flipCard);
+    setTimeout(() => {
+        alert("it's a match !")}, 100);
+    resetCards();
+}
+
+function resetHiderCards(){
+    lockBoard = true;
+    setTimeout(() => {
+        firstCard.childNodes[3].classList.remove('invisible');
+        secondCard.childNodes[3].classList.remove('invisible');
+        resetCards();
+        lockBoard = false;
+            }, 1000);
+    hasFlippedCard = false;
+    
+}
+
+function resetCards() {
+    firstCard = null;
+    secondCard = null;
+}
+
 
 cards.forEach(card => {
     card.addEventListener('click', flipCard);
 });
 
+
+
+(function shuffle() {
+    cards.forEach(card => {
+        let randomNumber = Math.floor(Math.random() * 6);
+        card.style.order = randomNumber;
+    });
+})();
